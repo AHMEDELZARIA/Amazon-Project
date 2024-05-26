@@ -1,5 +1,6 @@
 let productsHTML = '';
 
+// Generate the all the product listing HTML
 products.forEach((product) => {
   productsHTML += `
     <div class="product-container">
@@ -25,7 +26,7 @@ products.forEach((product) => {
       </div>
 
       <div class="product-quantity-container">
-        <select>
+        <select class="js-quantity-selector-${product.id}">
           <option selected value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -52,33 +53,45 @@ products.forEach((product) => {
     </div>
   `;
 });
-
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
+// Make the add to cart buttons interactive
 document.querySelectorAll('.js-add-to-cart')
 .forEach(button => {
     button.addEventListener('click', () => {
       const productId = button.dataset.productId;
 
       let matchingItem;
-
+      
+      // Check if item added is in the cart
       cart.forEach(item => {
         if (item.productId === productId) {
           matchingItem = item;
         }
       });
 
+      // Get the quantity selected
+      const selector = document.querySelector(
+        `.js-quantity-selector-${productId}`
+      );
+      const quantity = Number(selector.value);
+
+      // Add item to the cart
       if (matchingItem) {
-        matchingItem.quantity++;
+        // If item in the cart, update quantity
+        matchingItem.quantity += quantity;
+
       } else {
+        // Else place the item in the cart
         cart.push({
           productId,
-          quantity: 1
+          quantity
         });
       }
-
+      
       let cartQuantity = 0;
 
+      // Calculate and display the new cartQuantity
       cart.forEach(item => {
         cartQuantity += item.quantity;
       });
