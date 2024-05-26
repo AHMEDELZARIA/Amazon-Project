@@ -1,3 +1,6 @@
+import { cart } from '../data/cart.js';
+import { products } from '../data/products.js';
+
 let productsHTML = '';
 
 // Generate the all the product listing HTML
@@ -100,21 +103,23 @@ document.querySelectorAll('.js-add-to-cart')
 
       document.querySelector('.js-cart-quantity')
         .innerHTML = cartQuantity;
-
+      
+      // Get this products unique added to cart message
       const addedMessage = document.querySelector(
         `.js-added-to-cart-${productId}`
       );
       
+      // Make it visible
       addedMessage.classList.add('added-to-cart-visible');
-
+      
+      // Clear the previous timeout if present
       if (addedMessageTimeoutId) {
         clearTimeout(addedMessageTimeoutId);
       }
 
+      // Remove visibility after 2 seconds
       const timeoutId = setTimeout(() => addedMessage.classList.remove('added-to-cart-visible'), 2000);
 
       addedMessageTimeoutId = timeoutId;
-
-      console.log(addedMessageTimeoutId);
     });
   });
