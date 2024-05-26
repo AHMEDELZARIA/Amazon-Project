@@ -656,5 +656,34 @@ const products = [
       "apparel",
       "mens"
     ]
+  },
+  {
+    id: "9d2c78a1-69e4-42f9-b6df-83fde744b977",
+    image: "images/products/backpack.jpg",
+    name: "Urban Explorer: Multi-Function Travel Backpack",
+    rating: {
+      stars: 3.5,
+      count: 123
+    },
+    priceCents: 4500,
+    keywords: [
+      "backpack",
+      "bag",
+      "carry"
+    ]
+  },
+  {
+    id: "f2a3e5d6-1234-47b8-a9cf-34fde033c888",
+    image: "images/products/umbrella.jpg",
+    name: "All-Weather Shield: Compact Windproof Umbrella",
+    rating: {
+      stars: 4.5,
+      count: 1292
+    },
+    priceCents: 1250,
+    keywords: [
+      "umbrella",
+      "rain"
+    ]
   }
 ];
