@@ -2,6 +2,9 @@ import * as cartModule from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
+// Display correct cart quantity upon load up
+updateCartQuantity();
+
 let productsHTML = '';
 
 // Generate the all the product listing HTML
