@@ -7,7 +7,7 @@ updateCartQuantity();
 
 let productsHTML = '';
 
-// Generate the all the product listing HTML
+// Generate the HTML for the all the product listings
 products.forEach((product) => {
   productsHTML += `
     <div class="product-container">
@@ -61,15 +61,24 @@ products.forEach((product) => {
   `;
 });
 
+// Set the HTML for all the product listings
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
-function updateCartQuantity() {
-  let cartQuantity = 0;
-
-  // Calculate and display the new cartQuantity
-  cartModule.cart.forEach(cartItem => {
-    cartQuantity += cartItem.quantity;
+// Make the add to cart buttons interactive
+document.querySelectorAll('.js-add-to-cart')
+.forEach(button => {
+    let addedMessageTimeoutId;
+    
+    button.addEventListener('click', () => {
+      const { productId } = button.dataset;
+      cartModule.addToCart(productId);
+      updateCartQuantity();
+      addedMessageTimeoutId = showAddedMessage(productId, addedMessageTimeoutId);
+    });
   });
+
+function updateCartQuantity() {
+  const cartQuantity = cartModule.calculateCartQuantity();
 
   document.querySelector('.js-cart-quantity')
     .innerHTML = cartQuantity;
@@ -96,16 +105,4 @@ function showAddedMessage(productId, addedMessageTimeoutId) {
 
   return addedMessageTimeoutId;
 }
-
-// Make the add to cart buttons interactive
-document.querySelectorAll('.js-add-to-cart')
-.forEach(button => {
-    let addedMessageTimeoutId;
-    
-    button.addEventListener('click', () => {
-      const { productId } = button.dataset;
-      cartModule.addToCart(productId);
-      updateCartQuantity();
-      addedMessageTimeoutId = showAddedMessage(productId, addedMessageTimeoutId);
-    });
-  });
+  
